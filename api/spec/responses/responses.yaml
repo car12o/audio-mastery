@@ -1,0 +1,32 @@
+204:
+  description: No Content
+  schema:
+    $ref: "../definitions/error.yaml"
+400:
+  description: Bad Request
+  schema:
+    $ref: "../definitions/error.yaml"
+401:
+  description: Unauthorized
+  schema:
+    $ref: "../definitions/error.yaml"
+403:
+  description: Forbidden
+  schema:
+    $ref: "../definitions/error.yaml"
+404:
+  description: Not Found
+  schema:
+    $ref: "../definitions/error.yaml"
+500:
+  description: Internal Server Error
+  schema:
+    $ref: "../definitions/error.yaml"
+501:
+  description: Not Implemented
+  schema:
+    $ref: "../definitions/error.yaml"
+503:
+  description: Service Unavailable
+  schema:
+    $ref: "../definitions/error.yaml"

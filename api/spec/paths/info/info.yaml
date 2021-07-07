@@ -1,0 +1,17 @@
+get:
+  operationId: getInfo
+  description: Get API info
+  tags:
+    - info
+  responses:
+    200:
+      description: Ok
+      schema:
+        type: object
+        properties:
+          title:
+            type: string
+          version:
+            type: string
+          description:
+            type: string

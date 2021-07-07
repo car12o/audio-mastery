@@ -1,0 +1,37 @@
+swagger: "2.0"
+info:
+  title: Audio Mastery API
+  version: 1.0.0
+  description: Audio Mastery API definition
+
+host: "localhost:3000"
+
+schemes:
+  - "http"
+
+externalDocs:
+  description: Swagger spec v2 docs
+  url: https://swagger.io/specification/v2/
+
+consumes:
+  - application/json
+
+produces:
+  - application/json
+
+securityDefinitions:
+  bearer:
+    type: apiKey
+    in: header
+    name: Authorization
+
+tags:
+  - name: info
+    description: API info
+paths:
+  /info:
+    $ref: './paths/info/info.yaml'
+
+definitions:
+  error:
+    $ref: "./definitions/error.yaml"
