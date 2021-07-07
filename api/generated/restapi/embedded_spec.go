@@ -751,6 +751,34 @@ func init() {
     }
   },
   "definitions": {
+    "audio": {
+      "type": "object",
+      "properties": {
+        "createdAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "id": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "record": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "format": "byte"
+          }
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "user": {
+          "type": "string",
+          "format": "uuid"
+        }
+      }
+    },
     "error": {
       "type": "object",
       "properties": {
@@ -763,6 +791,27 @@ func init() {
         },
         "status": {
           "type": "string"
+        }
+      }
+    },
+    "user": {
+      "type": "object",
+      "properties": {
+        "createdAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "email": {
+          "type": "string",
+          "format": "email"
+        },
+        "id": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time"
         }
       }
     }
@@ -1534,6 +1583,34 @@ func init() {
         }
       }
     },
+    "audio": {
+      "type": "object",
+      "properties": {
+        "createdAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "id": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "record": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "format": "byte"
+          }
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "user": {
+          "type": "string",
+          "format": "uuid"
+        }
+      }
+    },
     "error": {
       "type": "object",
       "properties": {
@@ -1546,6 +1623,27 @@ func init() {
         },
         "status": {
           "type": "string"
+        }
+      }
+    },
+    "user": {
+      "type": "object",
+      "properties": {
+        "createdAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "email": {
+          "type": "string",
+          "format": "email"
+        },
+        "id": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time"
         }
       }
     }

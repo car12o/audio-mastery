@@ -50,5 +50,9 @@ paths:
     $ref: './paths/audio/audio_uuid.yaml'
 
 definitions:
+  user:
+    $ref: "./definitions/user.yaml"
+  audio:
+    $ref: "./definitions/audio.yaml"
   error:
     $ref: "./definitions/error.yaml"

@@ -81,6 +81,44 @@ export class RequiredError extends Error {
 /**
  * 
  * @export
+ * @interface Audio
+ */
+export interface Audio {
+    /**
+     * 
+     * @type {string}
+     * @memberof Audio
+     */
+    id?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof Audio
+     */
+    user?: string;
+    /**
+     * 
+     * @type {Array<string>}
+     * @memberof Audio
+     */
+    record?: Array<string>;
+    /**
+     * 
+     * @type {Date}
+     * @memberof Audio
+     */
+    createdAt?: Date;
+    /**
+     * 
+     * @type {Date}
+     * @memberof Audio
+     */
+    updatedAt?: Date;
+}
+
+/**
+ * 
+ * @export
  * @interface Body
  */
 export interface Body {
@@ -306,6 +344,38 @@ export interface InlineResponse400 {
      * @memberof InlineResponse400
      */
     message?: string;
+}
+
+/**
+ * 
+ * @export
+ * @interface User
+ */
+export interface User {
+    /**
+     * 
+     * @type {string}
+     * @memberof User
+     */
+    id?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof User
+     */
+    email?: string;
+    /**
+     * 
+     * @type {Date}
+     * @memberof User
+     */
+    createdAt?: Date;
+    /**
+     * 
+     * @type {Date}
+     * @memberof User
+     */
+    updatedAt?: Date;
 }
 
 

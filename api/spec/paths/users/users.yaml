@@ -21,7 +21,7 @@ post:
     201:
       description: Created
       schema:
-        $ref: "../../definitions/user.yaml#/model"
+        $ref: "../../definitions/user.yaml#"
     400:
       $ref: "../../responses/responses.yaml#/400"
     500:

@@ -1,12 +1,11 @@
-model:
-  type: object
-  properties:
-    id:
-      $ref: "./types.yaml#/uuid"
-    email:
-      $ref: "./types.yaml#/email"
-    createdAt:
-      $ref: "./types.yaml#/dateTime"
-    updatedAt:
-      $ref: "./types.yaml#/dateTime"
+type: object
+properties:
+  id:
+    $ref: "./types.yaml#/uuid"
+  email:
+    $ref: "./types.yaml#/email"
+  createdAt:
+    $ref: "./types.yaml#/dateTime"
+  updatedAt:
+    $ref: "./types.yaml#/dateTime"
 
