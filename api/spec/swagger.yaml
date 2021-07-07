@@ -28,9 +28,26 @@ securityDefinitions:
 tags:
   - name: info
     description: API info
+  - name: auth
+    description: Authentication
+  - name: users
+    description: Users management
+  - name: audios
+    description: Audios management
+
 paths:
   /info:
     $ref: './paths/info/info.yaml'
+  /v1/login:
+    $ref: './paths/auth/auth.yaml#/login'
+  /v1/logout:
+    $ref: './paths/auth/auth.yaml#/logout'
+  /v1/users:
+    $ref: './paths/users/users.yaml'
+  /v1/audio:
+    $ref: './paths/audio/audio.yaml'
+  /v1/audio/{uuid}:
+    $ref: './paths/audio/audio_uuid.yaml'
 
 definitions:
   error:

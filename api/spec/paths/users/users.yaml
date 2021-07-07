@@ -1,0 +1,28 @@
+post:
+  operationId: postUser
+  description: Creates a user
+  tags:
+    - users
+  parameters:
+    - in: body
+      name: body
+      required: true
+      schema:
+        type: object
+        required:
+          - email
+          - password
+        properties:
+          email:
+            $ref: "../../definitions/types.yaml#/email"
+          password:
+            $ref: "../../definitions/types.yaml#/password"
+  responses:
+    201:
+      description: Created
+      schema:
+        $ref: "../../definitions/user.yaml#/model"
+    400:
+      $ref: "../../responses/responses.yaml#/400"
+    500:
+      $ref: "../../responses/responses.yaml#/500"

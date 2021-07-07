@@ -7,11 +7,11 @@ serve: install.devdeps
 	@air -c .air.toml
 
 serve.docs:
-	@docker run --rm -v "${PWD}:/maintenance-tasks" -p 9000:9000 quay.io/goswagger/swagger serve \
+	@docker run --rm -v "${PWD}:/audio-mastery" -p 9000:9000 quay.io/goswagger/swagger serve \
 		--no-open \
 		--flavor swagger \
 		--port 9000 \
-		/maintenance-tasks/api/generated/swagger.yaml
+		/audio-mastery/api/generated/swagger.yaml
 
 install.devdeps:
 	@GO111MODULE=off go get -v github.com/cosmtrek/air

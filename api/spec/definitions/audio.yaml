@@ -1,0 +1,12 @@
+type: object
+properties:
+  id:
+    $ref: "./types.yaml#/uuid"
+  user:
+    $ref: "./types.yaml#/uuid"
+  record:
+    $ref: "./types.yaml#/record"
+  createdAt:
+    $ref: "./types.yaml#/dateTime"
+  updatedAt:
+    $ref: "./types.yaml#/dateTime"

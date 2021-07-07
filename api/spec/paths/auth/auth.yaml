@@ -1,0 +1,48 @@
+login:
+  post:
+    operationId: postLogin
+    description: User login
+    tags:
+      - auth
+    parameters:
+      - in: body
+        name: body
+        required: true
+        schema:
+          type: object
+          required:
+            - email
+            - password
+          properties:
+            email:
+              $ref: "../../definitions/types.yaml#/email"
+            password:
+              $ref: "../../definitions/types.yaml#/password"
+    responses:
+      200:
+        description: Ok
+        schema:
+          type: object
+          required:
+            - token
+          properties:
+            token:
+              type: string
+      400:
+        $ref: "../../responses/responses.yaml#/400"
+      500:
+        $ref: "../../responses/responses.yaml#/500"
+
+logout:
+  get:
+    operationId: getLogout
+    description: User logout
+    tags:
+      - auth
+    security:
+      - bearer: []
+    responses:
+      204:
+        $ref: "../../responses/responses.yaml#/204"
+      500:
+        $ref: "../../responses/responses.yaml#/500"

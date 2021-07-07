@@ -1,0 +1,41 @@
+get:
+  operationId: listAudios
+  description: Fetch audios
+  tags:
+    - audios
+  security:
+    - bearer: []
+  responses:
+    200:
+      description: Ok
+      schema:
+        type: array
+        items:
+          $ref: "../../definitions/audio.yaml"
+    500:
+      $ref: "../../responses/responses.yaml#/500"
+post:
+  operationId: postAudio
+  description: Creates an audio
+  tags:
+    - audios
+  security:
+    - bearer: []
+  parameters:
+    - in: body
+      name: body
+      required: true
+      schema:
+        type: object
+        required:
+          - record
+        properties:
+          record:
+            $ref: "../../definitions/types.yaml#/record"
+  responses:
+    204:
+      $ref: "../../responses/responses.yaml#/204"
+    401:
+      $ref: "../../responses/responses.yaml#/401"
+    500:
+      $ref: "../../responses/responses.yaml#/500"

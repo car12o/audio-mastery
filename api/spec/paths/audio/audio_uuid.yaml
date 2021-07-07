@@ -1,0 +1,71 @@
+get:
+  operationId: getAudio
+  description: Fetch a single audio
+  tags:
+    - audios
+  security:
+    - bearer: []
+  parameters:
+    - in: path
+      name: uuid
+      required: true
+      type: string
+  responses:
+    200:
+      description: Ok
+      schema:
+        $ref: "../../definitions/audio.yaml"
+    400:
+      $ref: "../../responses/responses.yaml#/400"
+    500:
+      $ref: "../../responses/responses.yaml#/500"
+put:
+  operationId: putAudio
+  description: Updates an audio
+  tags:
+    - audios
+  security:
+    - bearer: []
+  parameters:
+    - in: path
+      name: uuid
+      required: true
+      type: string
+    - in: body
+      name: body
+      required: true
+      schema:
+        type: object
+        properties:
+          record:
+            $ref: "../../definitions/types.yaml#/record"
+  responses:
+    204:
+      $ref: "../../responses/responses.yaml#/204"
+    400:
+      $ref: "../../responses/responses.yaml#/400"
+    401:
+      $ref: "../../responses/responses.yaml#/401"
+    500:
+      $ref: "../../responses/responses.yaml#/500"
+delete:
+  operationId: deleteAudio
+  description: Deletes an audio
+  tags:
+    - audios
+  security:
+    - bearer: []
+  parameters:
+    - in: path
+      name: uuid
+      required: true
+      type: string
+  responses:
+    204:
+      $ref: "../../responses/responses.yaml#/204"
+    400:
+      $ref: "../../responses/responses.yaml#/400"
+    401:
+      $ref: "../../responses/responses.yaml#/401"
+    500:
+      $ref: "../../responses/responses.yaml#/500"
