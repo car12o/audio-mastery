@@ -22,7 +22,7 @@ make serve
 ```
 ### Start server app docs
 ```sh
-# server app docs listenning on http://localhost:9000
+# server app docs listenning on http://localhost:9000/docs
 make serve.docs
 ```
 ### Start web app only (requires dependencies install)
