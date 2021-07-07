@@ -8,6 +8,7 @@ import (
 )
 
 func Load(api *operations.AudioMasteryAPI, log logger.Service) http.Handler {
+	setupAuths(api)
 	handler := api.Serve(nil)
 	requestLog := NewRequestLog(log)
 	return requestLog.Handle(handler)
