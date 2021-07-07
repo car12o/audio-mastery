@@ -40,7 +40,7 @@ func (o *GetAudioURL) SetBasePath(bp string) {
 func (o *GetAudioURL) Build() (*url.URL, error) {
 	var _result url.URL
 
-	var _path = "/v1/audio/{uuid}"
+	var _path = "/v1/audios/{uuid}"
 
 	uuid := o.UUID
 	if uuid != "" {

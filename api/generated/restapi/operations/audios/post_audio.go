@@ -14,19 +14,21 @@ import (
 	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
 	"github.com/go-openapi/validate"
+
+	"github.com/car12o/audio-mastery/api/generated/models"
 )
 
 // PostAudioHandlerFunc turns a function with the right signature into a post audio handler
-type PostAudioHandlerFunc func(PostAudioParams, interface{}) middleware.Responder
+type PostAudioHandlerFunc func(PostAudioParams, *models.Principal) middleware.Responder
 
 // Handle executing the request and returning a response
-func (fn PostAudioHandlerFunc) Handle(params PostAudioParams, principal interface{}) middleware.Responder {
+func (fn PostAudioHandlerFunc) Handle(params PostAudioParams, principal *models.Principal) middleware.Responder {
 	return fn(params, principal)
 }
 
 // PostAudioHandler interface for that can handle valid post audio params
 type PostAudioHandler interface {
-	Handle(PostAudioParams, interface{}) middleware.Responder
+	Handle(PostAudioParams, *models.Principal) middleware.Responder
 }
 
 // NewPostAudio creates a new http.Handler for the post audio operation
@@ -34,7 +36,7 @@ func NewPostAudio(ctx *middleware.Context, handler PostAudioHandler) *PostAudio 
 	return &PostAudio{Context: ctx, Handler: handler}
 }
 
-/* PostAudio swagger:route POST /v1/audio audios postAudio
+/* PostAudio swagger:route POST /v1/audios audios postAudio
 
 Creates an audio
 
@@ -58,9 +60,9 @@ func (o *PostAudio) ServeHTTP(rw http.ResponseWriter, r *http.Request) {
 	if aCtx != nil {
 		*r = *aCtx
 	}
-	var principal interface{}
+	var principal *models.Principal
 	if uprinc != nil {
-		principal = uprinc.(interface{}) // this is really a interface{}, I promise
+		principal = uprinc.(*models.Principal) // this is really a models.Principal, I promise
 	}
 
 	if err := o.Context.BindValidRequest(r, route, &Params); err != nil { // bind params
@@ -165,49 +167,6 @@ func (o *PostAudioInternalServerErrorBody) MarshalBinary() ([]byte, error) {
 // UnmarshalBinary interface implementation
 func (o *PostAudioInternalServerErrorBody) UnmarshalBinary(b []byte) error {
 	var res PostAudioInternalServerErrorBody
-	if err := swag.ReadJSON(b, &res); err != nil {
-		return err
-	}
-	*o = res
-	return nil
-}
-
-// PostAudioNoContentBody post audio no content body
-//
-// swagger:model PostAudioNoContentBody
-type PostAudioNoContentBody struct {
-
-	// code
-	Code int32 `json:"code,omitempty"`
-
-	// message
-	Message string `json:"message,omitempty"`
-
-	// status
-	Status string `json:"status,omitempty"`
-}
-
-// Validate validates this post audio no content body
-func (o *PostAudioNoContentBody) Validate(formats strfmt.Registry) error {
-	return nil
-}
-
-// ContextValidate validates this post audio no content body based on context it is used
-func (o *PostAudioNoContentBody) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
-	return nil
-}
-
-// MarshalBinary interface implementation
-func (o *PostAudioNoContentBody) MarshalBinary() ([]byte, error) {
-	if o == nil {
-		return nil, nil
-	}
-	return swag.WriteJSON(o)
-}
-
-// UnmarshalBinary interface implementation
-func (o *PostAudioNoContentBody) UnmarshalBinary(b []byte) error {
-	var res PostAudioNoContentBody
 	if err := swag.ReadJSON(b, &res); err != nil {
 		return err
 	}

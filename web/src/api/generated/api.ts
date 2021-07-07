@@ -349,6 +349,26 @@ export interface InlineResponse400 {
 /**
  * 
  * @export
+ * @interface Principal
+ */
+export interface Principal {
+    /**
+     * 
+     * @type {string}
+     * @memberof Principal
+     */
+    userID?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof Principal
+     */
+    email?: string;
+}
+
+/**
+ * 
+ * @export
  * @interface User
  */
 export interface User {
@@ -396,7 +416,7 @@ export const AudiosApiFetchParamCreator = function (configuration?: Configuratio
             if (uuid === null || uuid === undefined) {
                 throw new RequiredError('uuid','Required parameter uuid was null or undefined when calling deleteAudio.');
             }
-            const localVarPath = `/v1/audio/{uuid}`
+            const localVarPath = `/v1/audios/{uuid}`
                 .replace(`{${"uuid"}}`, encodeURIComponent(String(uuid)));
             const localVarUrlObj = url.parse(localVarPath, true);
             const localVarRequestOptions = Object.assign({ method: 'DELETE' }, options);
@@ -432,7 +452,7 @@ export const AudiosApiFetchParamCreator = function (configuration?: Configuratio
             if (uuid === null || uuid === undefined) {
                 throw new RequiredError('uuid','Required parameter uuid was null or undefined when calling getAudio.');
             }
-            const localVarPath = `/v1/audio/{uuid}`
+            const localVarPath = `/v1/audios/{uuid}`
                 .replace(`{${"uuid"}}`, encodeURIComponent(String(uuid)));
             const localVarUrlObj = url.parse(localVarPath, true);
             const localVarRequestOptions = Object.assign({ method: 'GET' }, options);
@@ -463,7 +483,7 @@ export const AudiosApiFetchParamCreator = function (configuration?: Configuratio
          * @throws {RequiredError}
          */
         listAudios(options: any = {}): FetchArgs {
-            const localVarPath = `/v1/audio`;
+            const localVarPath = `/v1/audios`;
             const localVarUrlObj = url.parse(localVarPath, true);
             const localVarRequestOptions = Object.assign({ method: 'GET' }, options);
             const localVarHeaderParameter = {} as any;
@@ -498,7 +518,7 @@ export const AudiosApiFetchParamCreator = function (configuration?: Configuratio
             if (body === null || body === undefined) {
                 throw new RequiredError('body','Required parameter body was null or undefined when calling postAudio.');
             }
-            const localVarPath = `/v1/audio`;
+            const localVarPath = `/v1/audios`;
             const localVarUrlObj = url.parse(localVarPath, true);
             const localVarRequestOptions = Object.assign({ method: 'POST' }, options);
             const localVarHeaderParameter = {} as any;
@@ -542,7 +562,7 @@ export const AudiosApiFetchParamCreator = function (configuration?: Configuratio
             if (body === null || body === undefined) {
                 throw new RequiredError('body','Required parameter body was null or undefined when calling putAudio.');
             }
-            const localVarPath = `/v1/audio/{uuid}`
+            const localVarPath = `/v1/audios/{uuid}`
                 .replace(`{${"uuid"}}`, encodeURIComponent(String(uuid)));
             const localVarUrlObj = url.parse(localVarPath, true);
             const localVarRequestOptions = Object.assign({ method: 'PUT' }, options);
@@ -639,12 +659,12 @@ export const AudiosApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        postAudio(body: Body2, options?: any): (fetch?: FetchAPI, basePath?: string) => Promise<InlineResponse400> {
+        postAudio(body: Body2, options?: any): (fetch?: FetchAPI, basePath?: string) => Promise<Response> {
             const localVarFetchArgs = AudiosApiFetchParamCreator(configuration).postAudio(body, options);
             return (fetch: FetchAPI = portableFetch, basePath: string = BASE_PATH) => {
                 return fetch(basePath + localVarFetchArgs.url, localVarFetchArgs.options).then((response) => {
                     if (response.status >= 200 && response.status < 300) {
-                        return response.json();
+                        return response;
                     } else {
                         throw response;
                     }

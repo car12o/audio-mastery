@@ -12,19 +12,21 @@ import (
 	"github.com/go-openapi/runtime/middleware"
 	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
+
+	"github.com/car12o/audio-mastery/api/generated/models"
 )
 
 // DeleteAudioHandlerFunc turns a function with the right signature into a delete audio handler
-type DeleteAudioHandlerFunc func(DeleteAudioParams, interface{}) middleware.Responder
+type DeleteAudioHandlerFunc func(DeleteAudioParams, *models.Principal) middleware.Responder
 
 // Handle executing the request and returning a response
-func (fn DeleteAudioHandlerFunc) Handle(params DeleteAudioParams, principal interface{}) middleware.Responder {
+func (fn DeleteAudioHandlerFunc) Handle(params DeleteAudioParams, principal *models.Principal) middleware.Responder {
 	return fn(params, principal)
 }
 
 // DeleteAudioHandler interface for that can handle valid delete audio params
 type DeleteAudioHandler interface {
-	Handle(DeleteAudioParams, interface{}) middleware.Responder
+	Handle(DeleteAudioParams, *models.Principal) middleware.Responder
 }
 
 // NewDeleteAudio creates a new http.Handler for the delete audio operation
@@ -32,7 +34,7 @@ func NewDeleteAudio(ctx *middleware.Context, handler DeleteAudioHandler) *Delete
 	return &DeleteAudio{Context: ctx, Handler: handler}
 }
 
-/* DeleteAudio swagger:route DELETE /v1/audio/{uuid} audios deleteAudio
+/* DeleteAudio swagger:route DELETE /v1/audios/{uuid} audios deleteAudio
 
 Deletes an audio
 
@@ -56,9 +58,9 @@ func (o *DeleteAudio) ServeHTTP(rw http.ResponseWriter, r *http.Request) {
 	if aCtx != nil {
 		*r = *aCtx
 	}
-	var principal interface{}
+	var principal *models.Principal
 	if uprinc != nil {
-		principal = uprinc.(interface{}) // this is really a interface{}, I promise
+		principal = uprinc.(*models.Principal) // this is really a models.Principal, I promise
 	}
 
 	if err := o.Context.BindValidRequest(r, route, &Params); err != nil { // bind params

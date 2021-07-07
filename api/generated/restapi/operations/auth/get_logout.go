@@ -12,19 +12,21 @@ import (
 	"github.com/go-openapi/runtime/middleware"
 	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
+
+	"github.com/car12o/audio-mastery/api/generated/models"
 )
 
 // GetLogoutHandlerFunc turns a function with the right signature into a get logout handler
-type GetLogoutHandlerFunc func(GetLogoutParams, interface{}) middleware.Responder
+type GetLogoutHandlerFunc func(GetLogoutParams, *models.Principal) middleware.Responder
 
 // Handle executing the request and returning a response
-func (fn GetLogoutHandlerFunc) Handle(params GetLogoutParams, principal interface{}) middleware.Responder {
+func (fn GetLogoutHandlerFunc) Handle(params GetLogoutParams, principal *models.Principal) middleware.Responder {
 	return fn(params, principal)
 }
 
 // GetLogoutHandler interface for that can handle valid get logout params
 type GetLogoutHandler interface {
-	Handle(GetLogoutParams, interface{}) middleware.Responder
+	Handle(GetLogoutParams, *models.Principal) middleware.Responder
 }
 
 // NewGetLogout creates a new http.Handler for the get logout operation
@@ -56,9 +58,9 @@ func (o *GetLogout) ServeHTTP(rw http.ResponseWriter, r *http.Request) {
 	if aCtx != nil {
 		*r = *aCtx
 	}
-	var principal interface{}
+	var principal *models.Principal
 	if uprinc != nil {
-		principal = uprinc.(interface{}) // this is really a interface{}, I promise
+		principal = uprinc.(*models.Principal) // this is really a models.Principal, I promise
 	}
 
 	if err := o.Context.BindValidRequest(r, route, &Params); err != nil { // bind params

@@ -1,0 +1,6 @@
+type: object
+properties:
+  userID:
+    $ref: "./types.yaml#/uuid"
+  email:
+    $ref: "./types.yaml#/email"

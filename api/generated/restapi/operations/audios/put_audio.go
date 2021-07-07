@@ -12,19 +12,21 @@ import (
 	"github.com/go-openapi/runtime/middleware"
 	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
+
+	"github.com/car12o/audio-mastery/api/generated/models"
 )
 
 // PutAudioHandlerFunc turns a function with the right signature into a put audio handler
-type PutAudioHandlerFunc func(PutAudioParams, interface{}) middleware.Responder
+type PutAudioHandlerFunc func(PutAudioParams, *models.Principal) middleware.Responder
 
 // Handle executing the request and returning a response
-func (fn PutAudioHandlerFunc) Handle(params PutAudioParams, principal interface{}) middleware.Responder {
+func (fn PutAudioHandlerFunc) Handle(params PutAudioParams, principal *models.Principal) middleware.Responder {
 	return fn(params, principal)
 }
 
 // PutAudioHandler interface for that can handle valid put audio params
 type PutAudioHandler interface {
-	Handle(PutAudioParams, interface{}) middleware.Responder
+	Handle(PutAudioParams, *models.Principal) middleware.Responder
 }
 
 // NewPutAudio creates a new http.Handler for the put audio operation
@@ -32,7 +34,7 @@ func NewPutAudio(ctx *middleware.Context, handler PutAudioHandler) *PutAudio {
 	return &PutAudio{Context: ctx, Handler: handler}
 }
 
-/* PutAudio swagger:route PUT /v1/audio/{uuid} audios putAudio
+/* PutAudio swagger:route PUT /v1/audios/{uuid} audios putAudio
 
 Updates an audio
 
@@ -56,9 +58,9 @@ func (o *PutAudio) ServeHTTP(rw http.ResponseWriter, r *http.Request) {
 	if aCtx != nil {
 		*r = *aCtx
 	}
-	var principal interface{}
+	var principal *models.Principal
 	if uprinc != nil {
-		principal = uprinc.(interface{}) // this is really a interface{}, I promise
+		principal = uprinc.(*models.Principal) // this is really a models.Principal, I promise
 	}
 
 	if err := o.Context.BindValidRequest(r, route, &Params); err != nil { // bind params

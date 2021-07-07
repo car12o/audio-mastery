@@ -63,7 +63,7 @@ func init() {
         }
       }
     },
-    "/v1/audio": {
+    "/v1/audios": {
       "get": {
         "security": [
           {
@@ -164,23 +164,8 @@ func init() {
           }
         ],
         "responses": {
-          "204": {
-            "description": "No Content",
-            "schema": {
-              "type": "object",
-              "properties": {
-                "code": {
-                  "type": "integer",
-                  "format": "int32"
-                },
-                "message": {
-                  "type": "string"
-                },
-                "status": {
-                  "type": "string"
-                }
-              }
-            }
+          "202": {
+            "description": "Accepted"
           },
           "401": {
             "description": "Unauthorized",
@@ -221,7 +206,7 @@ func init() {
         }
       }
     },
-    "/v1/audio/{uuid}": {
+    "/v1/audios/{uuid}": {
       "get": {
         "security": [
           {
@@ -794,6 +779,19 @@ func init() {
         }
       }
     },
+    "principal": {
+      "type": "object",
+      "properties": {
+        "email": {
+          "type": "string",
+          "format": "email"
+        },
+        "userID": {
+          "type": "string",
+          "format": "uuid"
+        }
+      }
+    },
     "user": {
       "type": "object",
       "properties": {
@@ -892,7 +890,7 @@ func init() {
         }
       }
     },
-    "/v1/audio": {
+    "/v1/audios": {
       "get": {
         "security": [
           {
@@ -968,23 +966,8 @@ func init() {
           }
         ],
         "responses": {
-          "204": {
-            "description": "No Content",
-            "schema": {
-              "type": "object",
-              "properties": {
-                "code": {
-                  "type": "integer",
-                  "format": "int32"
-                },
-                "message": {
-                  "type": "string"
-                },
-                "status": {
-                  "type": "string"
-                }
-              }
-            }
+          "202": {
+            "description": "Accepted"
           },
           "401": {
             "description": "Unauthorized",
@@ -1025,7 +1008,7 @@ func init() {
         }
       }
     },
-    "/v1/audio/{uuid}": {
+    "/v1/audios/{uuid}": {
       "get": {
         "security": [
           {
@@ -1623,6 +1606,19 @@ func init() {
         },
         "status": {
           "type": "string"
+        }
+      }
+    },
+    "principal": {
+      "type": "object",
+      "properties": {
+        "email": {
+          "type": "string",
+          "format": "email"
+        },
+        "userID": {
+          "type": "string",
+          "format": "uuid"
         }
       }
     },

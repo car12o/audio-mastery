@@ -10,6 +10,7 @@ import (
 	"github.com/go-openapi/runtime"
 	"github.com/go-openapi/runtime/middleware"
 
+	"github.com/car12o/audio-mastery/api/generated/models"
 	"github.com/car12o/audio-mastery/api/generated/restapi/operations"
 	"github.com/car12o/audio-mastery/api/generated/restapi/operations/audios"
 	"github.com/car12o/audio-mastery/api/generated/restapi/operations/auth"
@@ -17,7 +18,7 @@ import (
 	"github.com/car12o/audio-mastery/api/generated/restapi/operations/users"
 )
 
-//go:generate swagger generate server --target ../../generated --name AudioMastery --spec ../swagger.yaml --principal interface{} --exclude-main
+//go:generate swagger generate server --target ../../generated --name AudioMastery --spec ../swagger.yaml --principal models.Principal --exclude-main
 
 func configureFlags(api *operations.AudioMasteryAPI) {
 	// api.CommandLineOptionsGroups = []swag.CommandLineOptionsGroup{ ... }
@@ -43,7 +44,7 @@ func configureAPI(api *operations.AudioMasteryAPI) http.Handler {
 
 	// Applies when the "Authorization" header is set
 	if api.BearerAuth == nil {
-		api.BearerAuth = func(token string) (interface{}, error) {
+		api.BearerAuth = func(token string) (*models.Principal, error) {
 			return nil, errors.NotImplemented("api key auth (bearer) Authorization from header param [Authorization] has not yet been implemented")
 		}
 	}
@@ -55,12 +56,12 @@ func configureAPI(api *operations.AudioMasteryAPI) http.Handler {
 	// api.APIAuthorizer = security.Authorized()
 
 	if api.AudiosDeleteAudioHandler == nil {
-		api.AudiosDeleteAudioHandler = audios.DeleteAudioHandlerFunc(func(params audios.DeleteAudioParams, principal interface{}) middleware.Responder {
+		api.AudiosDeleteAudioHandler = audios.DeleteAudioHandlerFunc(func(params audios.DeleteAudioParams, principal *models.Principal) middleware.Responder {
 			return middleware.NotImplemented("operation audios.DeleteAudio has not yet been implemented")
 		})
 	}
 	if api.AudiosGetAudioHandler == nil {
-		api.AudiosGetAudioHandler = audios.GetAudioHandlerFunc(func(params audios.GetAudioParams, principal interface{}) middleware.Responder {
+		api.AudiosGetAudioHandler = audios.GetAudioHandlerFunc(func(params audios.GetAudioParams, principal *models.Principal) middleware.Responder {
 			return middleware.NotImplemented("operation audios.GetAudio has not yet been implemented")
 		})
 	}
@@ -70,17 +71,17 @@ func configureAPI(api *operations.AudioMasteryAPI) http.Handler {
 		})
 	}
 	if api.AuthGetLogoutHandler == nil {
-		api.AuthGetLogoutHandler = auth.GetLogoutHandlerFunc(func(params auth.GetLogoutParams, principal interface{}) middleware.Responder {
+		api.AuthGetLogoutHandler = auth.GetLogoutHandlerFunc(func(params auth.GetLogoutParams, principal *models.Principal) middleware.Responder {
 			return middleware.NotImplemented("operation auth.GetLogout has not yet been implemented")
 		})
 	}
 	if api.AudiosListAudiosHandler == nil {
-		api.AudiosListAudiosHandler = audios.ListAudiosHandlerFunc(func(params audios.ListAudiosParams, principal interface{}) middleware.Responder {
+		api.AudiosListAudiosHandler = audios.ListAudiosHandlerFunc(func(params audios.ListAudiosParams, principal *models.Principal) middleware.Responder {
 			return middleware.NotImplemented("operation audios.ListAudios has not yet been implemented")
 		})
 	}
 	if api.AudiosPostAudioHandler == nil {
-		api.AudiosPostAudioHandler = audios.PostAudioHandlerFunc(func(params audios.PostAudioParams, principal interface{}) middleware.Responder {
+		api.AudiosPostAudioHandler = audios.PostAudioHandlerFunc(func(params audios.PostAudioParams, principal *models.Principal) middleware.Responder {
 			return middleware.NotImplemented("operation audios.PostAudio has not yet been implemented")
 		})
 	}
@@ -95,7 +96,7 @@ func configureAPI(api *operations.AudioMasteryAPI) http.Handler {
 		})
 	}
 	if api.AudiosPutAudioHandler == nil {
-		api.AudiosPutAudioHandler = audios.PutAudioHandlerFunc(func(params audios.PutAudioParams, principal interface{}) middleware.Responder {
+		api.AudiosPutAudioHandler = audios.PutAudioHandlerFunc(func(params audios.PutAudioParams, principal *models.Principal) middleware.Responder {
 			return middleware.NotImplemented("operation audios.PutAudio has not yet been implemented")
 		})
 	}

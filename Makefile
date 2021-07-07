@@ -33,6 +33,7 @@ gen.api:
 	@docker run --rm -it -v "${PWD}:/audio-mastery" quay.io/goswagger/swagger generate server \
 		--exclude-main \
   	-A audio-mastery \
+		-P models.Principal \
   	-f /audio-mastery/api/generated/swagger.yaml \
   	-t /audio-mastery/api/generated && \
 		sudo chown -R ${USER}:${$USER} ./api/generated

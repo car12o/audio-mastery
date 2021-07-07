@@ -11,48 +11,28 @@ import (
 	"github.com/go-openapi/runtime"
 )
 
-// PostAudioNoContentCode is the HTTP code returned for type PostAudioNoContent
-const PostAudioNoContentCode int = 204
+// PostAudioAcceptedCode is the HTTP code returned for type PostAudioAccepted
+const PostAudioAcceptedCode int = 202
 
-/*PostAudioNoContent No Content
+/*PostAudioAccepted Accepted
 
-swagger:response postAudioNoContent
+swagger:response postAudioAccepted
 */
-type PostAudioNoContent struct {
-
-	/*
-	  In: Body
-	*/
-	Payload *PostAudioNoContentBody `json:"body,omitempty"`
+type PostAudioAccepted struct {
 }
 
-// NewPostAudioNoContent creates PostAudioNoContent with default headers values
-func NewPostAudioNoContent() *PostAudioNoContent {
+// NewPostAudioAccepted creates PostAudioAccepted with default headers values
+func NewPostAudioAccepted() *PostAudioAccepted {
 
-	return &PostAudioNoContent{}
-}
-
-// WithPayload adds the payload to the post audio no content response
-func (o *PostAudioNoContent) WithPayload(payload *PostAudioNoContentBody) *PostAudioNoContent {
-	o.Payload = payload
-	return o
-}
-
-// SetPayload sets the payload to the post audio no content response
-func (o *PostAudioNoContent) SetPayload(payload *PostAudioNoContentBody) {
-	o.Payload = payload
+	return &PostAudioAccepted{}
 }
 
 // WriteResponse to the client
-func (o *PostAudioNoContent) WriteResponse(rw http.ResponseWriter, producer runtime.Producer) {
+func (o *PostAudioAccepted) WriteResponse(rw http.ResponseWriter, producer runtime.Producer) {
 
-	rw.WriteHeader(204)
-	if o.Payload != nil {
-		payload := o.Payload
-		if err := producer.Produce(rw, payload); err != nil {
-			panic(err) // let the recovery middleware deal with this
-		}
-	}
+	rw.Header().Del(runtime.HeaderContentType) //Remove Content-Type on empty responses
+
+	rw.WriteHeader(202)
 }
 
 // PostAudioUnauthorizedCode is the HTTP code returned for type PostAudioUnauthorized

@@ -14,19 +14,21 @@ import (
 	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
 	"github.com/go-openapi/validate"
+
+	"github.com/car12o/audio-mastery/api/generated/models"
 )
 
 // GetAudioHandlerFunc turns a function with the right signature into a get audio handler
-type GetAudioHandlerFunc func(GetAudioParams, interface{}) middleware.Responder
+type GetAudioHandlerFunc func(GetAudioParams, *models.Principal) middleware.Responder
 
 // Handle executing the request and returning a response
-func (fn GetAudioHandlerFunc) Handle(params GetAudioParams, principal interface{}) middleware.Responder {
+func (fn GetAudioHandlerFunc) Handle(params GetAudioParams, principal *models.Principal) middleware.Responder {
 	return fn(params, principal)
 }
 
 // GetAudioHandler interface for that can handle valid get audio params
 type GetAudioHandler interface {
-	Handle(GetAudioParams, interface{}) middleware.Responder
+	Handle(GetAudioParams, *models.Principal) middleware.Responder
 }
 
 // NewGetAudio creates a new http.Handler for the get audio operation
@@ -34,7 +36,7 @@ func NewGetAudio(ctx *middleware.Context, handler GetAudioHandler) *GetAudio {
 	return &GetAudio{Context: ctx, Handler: handler}
 }
 
-/* GetAudio swagger:route GET /v1/audio/{uuid} audios getAudio
+/* GetAudio swagger:route GET /v1/audios/{uuid} audios getAudio
 
 Fetch a single audio
 
@@ -58,9 +60,9 @@ func (o *GetAudio) ServeHTTP(rw http.ResponseWriter, r *http.Request) {
 	if aCtx != nil {
 		*r = *aCtx
 	}
-	var principal interface{}
+	var principal *models.Principal
 	if uprinc != nil {
-		principal = uprinc.(interface{}) // this is really a interface{}, I promise
+		principal = uprinc.(*models.Principal) // this is really a models.Principal, I promise
 	}
 
 	if err := o.Context.BindValidRequest(r, route, &Params); err != nil { // bind params

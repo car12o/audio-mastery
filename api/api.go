@@ -5,6 +5,7 @@ import (
 
 	"github.com/car12o/audio-mastery/api/generated/restapi"
 	"github.com/car12o/audio-mastery/api/generated/restapi/operations"
+	"github.com/car12o/audio-mastery/api/handlers"
 	"github.com/car12o/audio-mastery/api/middleware"
 	"github.com/car12o/audio-mastery/pkg/logger"
 	"github.com/go-openapi/loads"
@@ -20,6 +21,7 @@ func NewServer(host string, port int, log logger.Service) (*restapi.Server, erro
 	api.Logger = func(s string, i ...interface{}) {
 		log.Info(fmt.Sprintf(s, i...))
 	}
+	handlers.Load(api)
 	handler := middleware.Load(api, log)
 
 	server := restapi.NewServer(api)

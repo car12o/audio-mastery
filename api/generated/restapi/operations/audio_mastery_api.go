@@ -19,6 +19,7 @@ import (
 	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
 
+	"github.com/car12o/audio-mastery/api/generated/models"
 	"github.com/car12o/audio-mastery/api/generated/restapi/operations/audios"
 	"github.com/car12o/audio-mastery/api/generated/restapi/operations/auth"
 	"github.com/car12o/audio-mastery/api/generated/restapi/operations/info"
@@ -47,22 +48,22 @@ func NewAudioMasteryAPI(spec *loads.Document) *AudioMasteryAPI {
 
 		JSONProducer: runtime.JSONProducer(),
 
-		AudiosDeleteAudioHandler: audios.DeleteAudioHandlerFunc(func(params audios.DeleteAudioParams, principal interface{}) middleware.Responder {
+		AudiosDeleteAudioHandler: audios.DeleteAudioHandlerFunc(func(params audios.DeleteAudioParams, principal *models.Principal) middleware.Responder {
 			return middleware.NotImplemented("operation audios.DeleteAudio has not yet been implemented")
 		}),
-		AudiosGetAudioHandler: audios.GetAudioHandlerFunc(func(params audios.GetAudioParams, principal interface{}) middleware.Responder {
+		AudiosGetAudioHandler: audios.GetAudioHandlerFunc(func(params audios.GetAudioParams, principal *models.Principal) middleware.Responder {
 			return middleware.NotImplemented("operation audios.GetAudio has not yet been implemented")
 		}),
 		InfoGetInfoHandler: info.GetInfoHandlerFunc(func(params info.GetInfoParams) middleware.Responder {
 			return middleware.NotImplemented("operation info.GetInfo has not yet been implemented")
 		}),
-		AuthGetLogoutHandler: auth.GetLogoutHandlerFunc(func(params auth.GetLogoutParams, principal interface{}) middleware.Responder {
+		AuthGetLogoutHandler: auth.GetLogoutHandlerFunc(func(params auth.GetLogoutParams, principal *models.Principal) middleware.Responder {
 			return middleware.NotImplemented("operation auth.GetLogout has not yet been implemented")
 		}),
-		AudiosListAudiosHandler: audios.ListAudiosHandlerFunc(func(params audios.ListAudiosParams, principal interface{}) middleware.Responder {
+		AudiosListAudiosHandler: audios.ListAudiosHandlerFunc(func(params audios.ListAudiosParams, principal *models.Principal) middleware.Responder {
 			return middleware.NotImplemented("operation audios.ListAudios has not yet been implemented")
 		}),
-		AudiosPostAudioHandler: audios.PostAudioHandlerFunc(func(params audios.PostAudioParams, principal interface{}) middleware.Responder {
+		AudiosPostAudioHandler: audios.PostAudioHandlerFunc(func(params audios.PostAudioParams, principal *models.Principal) middleware.Responder {
 			return middleware.NotImplemented("operation audios.PostAudio has not yet been implemented")
 		}),
 		AuthPostLoginHandler: auth.PostLoginHandlerFunc(func(params auth.PostLoginParams) middleware.Responder {
@@ -71,12 +72,12 @@ func NewAudioMasteryAPI(spec *loads.Document) *AudioMasteryAPI {
 		UsersPostUserHandler: users.PostUserHandlerFunc(func(params users.PostUserParams) middleware.Responder {
 			return middleware.NotImplemented("operation users.PostUser has not yet been implemented")
 		}),
-		AudiosPutAudioHandler: audios.PutAudioHandlerFunc(func(params audios.PutAudioParams, principal interface{}) middleware.Responder {
+		AudiosPutAudioHandler: audios.PutAudioHandlerFunc(func(params audios.PutAudioParams, principal *models.Principal) middleware.Responder {
 			return middleware.NotImplemented("operation audios.PutAudio has not yet been implemented")
 		}),
 
 		// Applies when the "Authorization" header is set
-		BearerAuth: func(token string) (interface{}, error) {
+		BearerAuth: func(token string) (*models.Principal, error) {
 			return nil, errors.NotImplemented("api key auth (bearer) Authorization from header param [Authorization] has not yet been implemented")
 		},
 		// default authorizer is authorized meaning no requests are blocked
@@ -119,7 +120,7 @@ type AudioMasteryAPI struct {
 
 	// BearerAuth registers a function that takes a token and returns a principal
 	// it performs authentication based on an api key Authorization provided in the header
-	BearerAuth func(string) (interface{}, error)
+	BearerAuth func(string) (*models.Principal, error)
 
 	// APIAuthorizer provides access control (ACL/RBAC/ABAC) by providing access to the request and authenticated principal
 	APIAuthorizer runtime.Authorizer
@@ -270,7 +271,9 @@ func (o *AudioMasteryAPI) AuthenticatorsFor(schemes map[string]spec.SecuritySche
 		switch name {
 		case "bearer":
 			scheme := schemes[name]
-			result[name] = o.APIKeyAuthenticator(scheme.Name, scheme.In, o.BearerAuth)
+			result[name] = o.APIKeyAuthenticator(scheme.Name, scheme.In, func(token string) (interface{}, error) {
+				return o.BearerAuth(token)
+			})
 
 		}
 	}
@@ -350,11 +353,11 @@ func (o *AudioMasteryAPI) initHandlerCache() {
 	if o.handlers["DELETE"] == nil {
 		o.handlers["DELETE"] = make(map[string]http.Handler)
 	}
-	o.handlers["DELETE"]["/v1/audio/{uuid}"] = audios.NewDeleteAudio(o.context, o.AudiosDeleteAudioHandler)
+	o.handlers["DELETE"]["/v1/audios/{uuid}"] = audios.NewDeleteAudio(o.context, o.AudiosDeleteAudioHandler)
 	if o.handlers["GET"] == nil {
 		o.handlers["GET"] = make(map[string]http.Handler)
 	}
-	o.handlers["GET"]["/v1/audio/{uuid}"] = audios.NewGetAudio(o.context, o.AudiosGetAudioHandler)
+	o.handlers["GET"]["/v1/audios/{uuid}"] = audios.NewGetAudio(o.context, o.AudiosGetAudioHandler)
 	if o.handlers["GET"] == nil {
 		o.handlers["GET"] = make(map[string]http.Handler)
 	}
@@ -366,11 +369,11 @@ func (o *AudioMasteryAPI) initHandlerCache() {
 	if o.handlers["GET"] == nil {
 		o.handlers["GET"] = make(map[string]http.Handler)
 	}
-	o.handlers["GET"]["/v1/audio"] = audios.NewListAudios(o.context, o.AudiosListAudiosHandler)
+	o.handlers["GET"]["/v1/audios"] = audios.NewListAudios(o.context, o.AudiosListAudiosHandler)
 	if o.handlers["POST"] == nil {
 		o.handlers["POST"] = make(map[string]http.Handler)
 	}
-	o.handlers["POST"]["/v1/audio"] = audios.NewPostAudio(o.context, o.AudiosPostAudioHandler)
+	o.handlers["POST"]["/v1/audios"] = audios.NewPostAudio(o.context, o.AudiosPostAudioHandler)
 	if o.handlers["POST"] == nil {
 		o.handlers["POST"] = make(map[string]http.Handler)
 	}
@@ -382,7 +385,7 @@ func (o *AudioMasteryAPI) initHandlerCache() {
 	if o.handlers["PUT"] == nil {
 		o.handlers["PUT"] = make(map[string]http.Handler)
 	}
-	o.handlers["PUT"]["/v1/audio/{uuid}"] = audios.NewPutAudio(o.context, o.AudiosPutAudioHandler)
+	o.handlers["PUT"]["/v1/audios/{uuid}"] = audios.NewPutAudio(o.context, o.AudiosPutAudioHandler)
 }
 
 // Serve creates a http handler to serve the API over HTTP

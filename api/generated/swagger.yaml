@@ -199,7 +199,7 @@ paths:
                 type: string
               message:
                 type: string
-  /v1/audio:
+  /v1/audios:
     get:
       operationId: listAudios
       description: Fetch audios
@@ -266,18 +266,8 @@ paths:
                   type: string
                   format: byte
       responses:
-        '204':
-          description: No Content
-          schema:
-            type: object
-            properties:
-              code:
-                type: integer
-                format: int32
-              status:
-                type: string
-              message:
-                type: string
+        '202':
+          description: Accepted
         '401':
           description: Unauthorized
           schema:
@@ -302,7 +292,7 @@ paths:
                 type: string
               message:
                 type: string
-  '/v1/audio/{uuid}':
+  '/v1/audios/{uuid}':
     get:
       operationId: getAudio
       description: Fetch a single audio
@@ -531,6 +521,15 @@ definitions:
       updatedAt:
         type: string
         format: date-time
+  principal:
+    type: object
+    properties:
+      userID:
+        type: string
+        format: uuid
+      email:
+        type: string
+        format: email
   error:
     type: object
     properties:
