@@ -1,0 +1,28 @@
+version: "3.7"
+
+services:
+  server:
+    image: golang:1.16.5-stretch
+    working_dir: /go/src/server
+    command: make serve
+    restart: unless-stopped
+    environment:
+      - HOST=0.0.0.0
+      - PORT=3000
+    ports:
+      - 3000:3000
+    volumes:
+      - .:/go/src/server
+
+  web:
+    image: node:14.15.5-stretch
+    working_dir: /usr/src/web
+    command: npm run start
+    restart: unless-stopped
+    environment:
+      - PORT=80
+    ports:
+      - 80:80
+    volumes:
+      - ./web:/usr/src/web
+
