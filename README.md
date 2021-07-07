@@ -52,7 +52,5 @@ I decided to use Go on the backend because, besides being my favorite language, 
 #### Frontend
 I decided to use React on the frontend because it has a good performance on the client-side and also because it's the one I have more knowledge with.
 
-### Architectur
-
 ## Refrences
 - [golang project layout standards](https://github.com/golang-standards/project-layout)
